@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title><%- pageTitle %> | <%- siteTitle %></title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/modern-business.css">
+  </head>
+  <body>
+
+    <%- partial("partial/_header")%>
+
+    <%- yield %>
+
+    <%- partial("partial/_footer") %>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="js/bootstrap.bundle.js"></script> -->
+    <script src="js/lc4_main.js"></script>
+  </body>
+</html>

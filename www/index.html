@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Home | Your Site</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/modern-business.css">
+  </head>
+  <body>
+
+    
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Fontkodo</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <header>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+  <h1 class="my-4">Welcome to Fontkodo</h1>
+
+  <hr>
+  <div class="row mb-12 card">
+    
+      <h1 class="card-header">ElsieFour (LC4) Encryption Cipher</h1>
+    
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          
+        </div>
+        <div class="form-group">
+          <label for="seq_field">Sequence</label>
+          <textarea class="form-control" id="seq_field" placeholder="Enter Sequence"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="key_field">Key</label>
+        <input type="text" class="form-control" id="key_field" aria-describedby="" placeholder="Enter key">
+        </div>
+      </form>
+        <div id="accordion">
+            <div class="card mt-3">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+            <button class="btn btn-link mr-5" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Security
+            </button>
+          </h5>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+<div class="form-inline">
+          <label for="sig_field">Signature:
+        <input type="text" class="ml-2 form-control" id="sig_field" aria-describedby="" placeholder="Enter signature">
+      </label>
+      <label for="header_field" class="ml-3">Header:
+        <input type="text" class="ml-2 form-control" id="header_field" aria-describedby="" placeholder="Enter header">
+      </label>
+        </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form>
+          <button type="button" class="btn btn-primary my-3" id="encryptBtn">Encrypt/Sign</button>
+          <button type="button" class="btn btn-primary" id="decryptBtn">Decrypt/Unsign</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+<!-- /.container -->
+
+    <!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Tim Patton 2019</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Required -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Bootstrap core JavaScript -->
+<!-- <script src="js/bootstrap.bundle.min.js"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="js/bootstrap.bundle.js"></script> -->
+    <script src="js/lc4_main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<header>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+  <h1 class="my-4">Welcome to Fontkodo</h1>
+
+  <hr>
+  <div class="row mb-12 card">
+    <%# <div class="card"> %>
+      <h1 class="card-header">ElsieFour (LC4) Encryption Cipher</h1>
+    <%# <div class="col-md-4">
+      <p>The hand-computible secure cipher based on RC4.</p>
+    </div> %>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <%# <input type="text" class="form-control" id="" %>
+        </div>
+        <div class="form-group">
+          <label for="seq_field">Sequence</label>
+          <textarea class="form-control" id="seq_field" placeholder="Enter Sequence"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="key_field">Key</label>
+        <input type="text" class="form-control" id="key_field" aria-describedby="" placeholder="Enter key">
+        </div>
+      </form>
+        <div id="accordion">
+            <div class="card mt-3">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+            <button class="btn btn-link mr-5" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Security
+            </button>
+          </h5>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+<div class="form-inline">
+          <label for="sig_field">Signature:
+        <input type="text" class="ml-2 form-control" id="sig_field" aria-describedby="" placeholder="Enter signature">
+      </label>
+      <label for="header_field" class="ml-3">Header:
+        <input type="text" class="ml-2 form-control" id="header_field" aria-describedby="" placeholder="Enter header">
+      </label>
+        </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form>
+          <button type="button" class="btn btn-primary my-3" id="encryptBtn">Encrypt/Sign</button>
+          <button type="button" class="btn btn-primary" id="decryptBtn">Decrypt/Unsign</button>
+      </form>
+    </div>
+  </div>
+<%# </div> %>
+</div>
+<!-- /.container -->
