@@ -1,3 +1,7 @@
+/* Provides key functions to modify and generate the ciphertext
+ * Translated from C code
+*/
+
 let board = [[]];
 
 let marker = {
@@ -16,95 +20,93 @@ function processSequence(key, sequence, signature="", header="", mode=''){
   switch(mode){
     case 'e':
     case 'd':
-    let i = 0;
-    //determine if request originated from sign/unsign
-    if(signature.length == 0){
-      setState(key, "", "");
-    }
-    while(i < sequence.length){
-      val = processLetter(sequence[i], mode);
-      sequence[i] = val;
-      i++;
-    }
-    i = 0;
-    while(i < signature.length){
-      val = processLetter(signature[i], mode);
-      signature[i] = val;
-      i++;
-    }
-    break;
+      let i = 0;
+      //determine if request originated from sign/unsign
+      if(signature.length == 0){
+        setState(key, "", "");
+      }
+      while(i < sequence.length){
+        val = processLetter(sequence[i], mode);
+        sequence[i] = val;
+        i++;
+      }
+      i = 0;
+      while(i < signature.length){
+        val = processLetter(signature[i], mode);
+        signature[i] = val;
+        i++;
+      }
+      break;
     case 's':
-    j = 0;
-    let buf = [];
-    nonce = "abcdef";
-    nonce = nonce.split('');
+      j = 0;
+      let buf = [];
+      nonce = "abcdef";
+      nonce = nonce.split('');
 
-    for(let j = 0; j < 6; j++){
-      //0 to 35 inclusive
-      //nonce.push(boardIndex[Math.floor(Math.random() * 36)]);
-    }
-    console.log(nonce);
-    setState(key, nonce, header);
+      for(let j = 0; j < 6; j++){
+        //0 to 35 inclusive
+        //nonce.push(boardIndex[Math.floor(Math.random() * 36)]);
+      }
+      console.log(nonce);
+      setState(key, nonce, header);
 
-    processSequence(key, sequence, signature, header, 'e');
+      processSequence(key, sequence, signature, header, 'e');
 
-    //sanitize output
-    buf = sequence.slice(0);
-    j = 0;
-    while(j < NONCE_SIZE){
-      sequence[j] = nonce[j];
-      j++;
-    }
-    while(j < NONCE_SIZE+buf.length){
-      sequence[j] = buf[j-NONCE_SIZE];
-      j++;
-    }
-    break;
+      //sanitize output
+      buf = sequence.slice(0);
+      j = 0;
+      while(j < NONCE_SIZE){
+        sequence[j] = nonce[j];
+        j++;
+      }
+      while(j < NONCE_SIZE+buf.length){
+        sequence[j] = buf[j-NONCE_SIZE];
+        j++;
+      }
+      break;
 
     case 'u':
-    let sigOffset = sequence.length-SIGNATURE_SIZE;
-    let s_buf = [sigOffset-NONCE_SIZE+1]
-    nonce = [NONCE_SIZE];
-    let k = 0;
+      let sigOffset = sequence.length-SIGNATURE_SIZE;
+      let s_buf = [sigOffset-NONCE_SIZE+1]
+      nonce = [NONCE_SIZE];
+      let k = 0;
 
-    //extract nonce
-    while(k < NONCE_SIZE){
-      nonce[k] = sequence[k];
-      k++;
-    }
+      //extract nonce
+      while(k < NONCE_SIZE){
+        nonce[k] = sequence[k];
+        k++;
+      }
 
-    //according to presence of extracted nonce and header
-    setState(key, nonce, header);
+      //according to presence of extracted nonce and header
+      setState(key, nonce, header);
 
-    //extract sequence
-    while(k < sigOffset){
-      s_buf[k-NONCE_SIZE] = sequence[k];
-      k++;
-    }
+      //extract sequence
+      while(k < sigOffset){
+        s_buf[k-NONCE_SIZE] = sequence[k];
+        k++;
+      }
 
-    //extract signature
-    while(k < sequence.length){
-      signature[k-sigOffset] = sequence[k];
-      k++;
-    }
+      //extract signature
+      while(k < sequence.length){
+        signature[k-sigOffset] = sequence[k];
+        k++;
+      }
 
-    //assigns without changing pointer, for return
-    let sequenceTemp = s_buf.slice(0);
-    for(let i = 0; i < sequenceTemp.length; i++){
-      sequence[i] = sequenceTemp[i];
-    }
-    //shorten array
-    sequence.length = s_buf.length;
+      //assigns without changing pointer, for return
+      let sequenceTemp = s_buf.slice(0);
+      for(let i = 0; i < sequenceTemp.length; i++){
+        sequence[i] = sequenceTemp[i];
+      }
+      //shorten array
+      sequence.length = s_buf.length;
 
-    processSequence(key, sequence, signature, header, 'd');
+      processSequence(key, sequence, signature, header, 'd');
 
-    break;
+      break;
     default:
   }
-  //return sequence;
 }
 
-//
 function processLetter(pl, mode){
   let plain = {}, cipher = {};
 
@@ -132,7 +134,8 @@ function processLetter(pl, mode){
     }
     plain.x = (cipher.x + (-markIncX))%6;
     plain.y = (cipher.y + (-markIncY))%6;
-    //handle C's negative remainder behaviour
+
+    //handle modulo negative remainder behaviour
     plain.x = (plain.x < 0) ? 6 - Math.abs(plain.x): plain.x;
     plain.y = (plain.y < 0) ? 6 - Math.abs(plain.y): plain.y;
     ret = board[plain.x][plain.y];
@@ -143,7 +146,8 @@ function processLetter(pl, mode){
   let ciphIncY = Math.floor(ciphVal/6);
 
   //according to algorithm, Y for row start, X for col start
-  shiftRow(plain.y);
+  shiftRow(plain.y);``
+
   //prevent row shift from misaligning stored cipher location
   if(cipher.y == plain.y){
     cipher.x = (cipher.x+1)%6;
@@ -170,7 +174,7 @@ function getCharLocation(plain){
 
 function shiftRow(row){
   if(marker.y == row)
-  marker.x = (marker.x+1)%6;
+    marker.x = (marker.x+1)%6;
 
   let move = board[5][row];
   for(let i = 5; i > 0; i--){
@@ -181,7 +185,7 @@ function shiftRow(row){
 //
 function shiftCol(col){
   if(marker.x == col)
-  marker.y = (marker.y+1)%6;
+    marker.y = (marker.y+1)%6;
 
   let move = board[col][5];
   for(let i = 5; i > 0; i--){
@@ -189,19 +193,7 @@ function shiftCol(col){
   }
   board[col][0] = move;
 }
-//
-// void printState(char * pt, char * ct){
-// 	for(int i = 0; i < 6; i++){
-// 		for(int j = 0; j < 6; j++){
-// 			printf("%c", board[j][i]);
-// 		}
-// 		printf("\n");
-// 	}
-// 	printf("m: (%d,%d)", mark.x, mark.y);
-// 	printf("pt: %c ", *pt);
-// 	printf("ct: %c\n", *ct);
-// }
-//
+
 function setState(key, nonce, header){
   marker.x = 0;
   marker.y = 0;
@@ -224,9 +216,30 @@ function setState(key, nonce, header){
   }
 }
 
-//CONTROLLER
+
+//-------------------- Controller -------------------------------
 document.getElementById("encryptBtn").addEventListener("click", encrypt);
 document.getElementById("decryptBtn").addEventListener("click", decrypt);
+document.getElementById("generateBtn").addEventListener("click", generate);
+
+// function generate
+function generate(){
+
+  let key = document.getElementById('key_field');
+  let i = 35;
+  let rand = 0;
+  let cpyKey = [];
+  cpyKey = boardStr.split('').slice();
+  let genKey = [];
+
+  // Implements the Fisher–Yates shuffle to generate a permutation
+  while(i >= 0){
+    rand = Math.floor(Math.random() * cpyKey.length);
+    genKey.push(cpyKey.splice(rand,1).toString());
+    i--;
+  }
+  key.value = genKey.join('');
+}
 
 function encrypt(){
     let key = document.getElementById('key_field').value;
@@ -242,7 +255,7 @@ function encrypt(){
     }
     console.log(encrypt.caller);
     // processSequence(key, sequence, "", "", 'e');
-    document.getElementById('seq_field').value = sequence.join('')+signature.join('');
+    document.getElementById('seq_field').value = sequence.join('') + signature.join('');
 }
 
 function decrypt(){
@@ -260,35 +273,45 @@ function decrypt(){
   document.getElementById('sig_field').value = signature.join('');
 }
 
-// function decrypt
+/* JS functionality tests
 
-//test JS functionality
+void printState(char * pt, char * ct){
+	for(int i = 0; i < 6; i++){
+		for(int j = 0; j < 6; j++){
+			printf("%c", board[j][i]);
+		}
+		printf("\n");
+	}
+	printf("m: (%d,%d)", mark.x, mark.y);
+	printf("pt: %c ", *pt);
+	printf("ct: %c\n", *ct);
+}
 
-//encryption
-// let key = "7dju4s_in6vkecxorlzftgq358mhy29pw#ba";
-// let sequence = "the_swallow_flies_at_midnight";
-// signature = "";
+encryption
+let key = "7dju4s_in6vkecxorlzftgq358mhy29pw#ba";
+let sequence = "the_swallow_flies_at_midnight";
+signature = "";
 
-//decryption
-// let key = "9mlpg_to2yxuzh4387dsajknf56bi#ecwrqv";
-// let sequence = "grrhkajlmd3c6xkw65m3dnwl65n9op6k_o59qeq";
-// signature = "";
+decryption
+let key = "9mlpg_to2yxuzh4387dsajknf56bi#ecwrqv";
+let sequence = "grrhkajlmd3c6xkw65m3dnwl65n9op6k_o59qeq";
+signature = "";
 
-//signing
-// let key = "xv7ydq#opaj_39rzut8b45wcsgehmiknf26l";
-// let sequence = "im_about_to_put_the_hammer_down";
-// let signature = "lrubberduc";
-//with header
-// let header = "abcdefgh23456789";
+signing
+let key = "xv7ydq#opaj_39rzut8b45wcsgehmiknf26l";
+let sequence = "im_about_to_put_the_hammer_down";
+let signature = "lrubberduc";
+with header
+let header = "abcdefgh23456789";
 
-// //unsigning
-// let key = "xv7ydq#opaj_39rzut8b45wcsgehmiknf26l";
-// let signature = "lrubberduc";
-// let header = "abcdefgh23456789";
-// let sequence = "35q6wghr7ikwu_q9qib_744exjcv_mkrcemynetk4bvjqgd";
-//
-// sequence = sequence.split('');
-// signature = signature.split('');
-//
-// processSequence(key, sequence, signature, header, 's');
-// console.log(sequence.join('')+signature.join(''));
+//unsigning
+let key = "xv7ydq#opaj_39rzut8b45wcsgehmiknf26l";
+let signature = "lrubberduc";
+let header = "abcdefgh23456789";
+let sequence = "35q6wghr7ikwu_q9qib_744exjcv_mkrcemynetk4bvjqgd";
+
+sequence = sequence.split('');
+signature = signature.split('');
+
+processSequence(key, sequence, signature, header, 's');
+console.log(sequence.join('')+signature.join(''));*/

@@ -216,7 +216,16 @@ function setState(key, nonce, header){
   }
 }
 
-function generateKey(){
+
+//-------------------- Controller -------------------------------
+document.getElementById("encryptBtn").addEventListener("click", encrypt);
+document.getElementById("decryptBtn").addEventListener("click", decrypt);
+document.getElementById("generateBtn").addEventListener("click", generate);
+
+// function generate
+function generate(){
+
+  let key = document.getElementById('key_field');
   let i = 35;
   let rand = 0;
   let cpyKey = [];
@@ -224,19 +233,13 @@ function generateKey(){
   let genKey = [];
 
   // Implements the Fisher–Yates shuffle to generate a permutation
-  while(i > 0){
+  while(i >= 0){
     rand = Math.floor(Math.random() * cpyKey.length);
     genKey.push(cpyKey.splice(rand,1).toString());
     i--;
   }
-  return keyGen;
+  key.value = genKey.join('');
 }
-
-generateKey();
-
-//-------------------- Controller -------------------------------
-document.getElementById("encryptBtn").addEventListener("click", encrypt);
-document.getElementById("decryptBtn").addEventListener("click", decrypt);
 
 function encrypt(){
     let key = document.getElementById('key_field').value;
@@ -252,7 +255,7 @@ function encrypt(){
     }
     console.log(encrypt.caller);
     // processSequence(key, sequence, "", "", 'e');
-    document.getElementById('seq_field').value = sequence.join('')+signature.join('');
+    document.getElementById('seq_field').value = sequence.join('') + signature.join('');
 }
 
 function decrypt(){
